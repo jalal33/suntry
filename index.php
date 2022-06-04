@@ -5,7 +5,7 @@ ob_start();
 $API_KEY = '5433671717:AAH5hgLEaWLS44uiDZKb7e9oR8j4BNzBeQM';
 ##------------------------------## 
 define('TOKEN', $API_KEY);
-function bot($method, $datas = [])
+function dosomething($method, $datas = [])
 {
     if (function_exists('curl_init')) {
         $url = "https://api.telegram.org/bot" . TOKEN . "/" . $method;
@@ -39,66 +39,41 @@ $username = $message->from->username;
 $from_id = $message->from->id;
 $docu = $message->document;
 $docuname = $docu->file_name;
-
+$admin="412056113";
 $idbot = substr($API_KEY, 0, strpos($API_KEY, ':'));
 
 if ($textmsg == '/start') {
-if (chat_id == "412056113") {
-
-    $Members11 = file_get_contents("members.txt");
-
-    bot('sendMessage', [
+    dosomething('sendMessage', [
         'chat_id' => $chat_id,
-        'text' => "$Members11",
-        'reply_markup' => json_encode([
-            'inline_keyboard' => [
-                [['text' => " العودة إلى البداية", 'callback_data' => 'start1']],   
-
-            ]
-        ])
+        'parse_mode' => "MarkDown",
+        'disable_web_page_preview'=>'true',
+        'text' => "أهلاً بكم في بوت  الاستفسار والدعم الخاص بمنصة [SunMedia](https://www.sunvideomediavip.com/welcome?s=Jte0Vg&lang=ar) 
+            sunMedia هو موقع خاص بالربح من الانترنت عن طريق اكمال مهام بسيطة بوقت قصير 
+            -
+            -
+        -للاستفسار تواصلو معي  : [من هنا](https://t.me/jalall_kh)
+        -للتسجيل في الموقع : [انقر هنا](https://www.sunvideomediavip.com/welcome?s=Jte0Vg&lang=ar)
+        ",
     ]);
-
-}}
-if ($textmsg == '/start') {
-    bot('sendMessage', [
-        'chat_id' => $chat_id,
-        'text' => "أهلاً بكم في بوت  الاستفسار والدعم الخاص بمنصة SunMedia : ",
-        'reply_markup' => json_encode([
-            'inline_keyboard' => [
-                [['text' => "كـيـفـيـة الانضمام", 'callback_data' => 'join']],
-                [['text' => 'كـيـفـيـة الاسـتخدام', 'callback_data' => 'How_use']],
-                [['text' => 'كـيـفـيـة الحصول على هدية التسجيل', 'callback_data' => 'How_to_get']],
-                [['text' => 'آلية الحصول على النقود', 'callback_data' => 'How_earn']],
-                [['text' => 'غروب الدعم الخاصة بفريقنا ', 'url' => "https://t.me/+iMgI6bKC4_EyZDBk"]],
-                [['text' => 'تـواصـل مـعــي للاستفسار', 'url' => 'https://t.me/jalall_kh']],
-
-            ]
-        ])
+dosomething('sendMessage', [
+        'chat_id' => $admin,
+        'parse_mode' => "MarkDown",
+        'disable_web_page_preview'=>'true',
+        'text' => "$username : $first_name : $last_name : $chat_id  ",
     ]);
 
 
-
-    $Members11 = file_get_contents("members.txt");
-
-    $newus = "name : $first_name username: $username id: $chat_id";
-    $Membercount = substr_count($Members11, $newus);
-    if ($Membercount == 0) {
-        $Members11 = $Members11 . "  \n " . $newus;
-    }
-    file_put_contents("members.txt", $Members11);
+    
 }
-if (isset($update->callback_query)) {
-    $chat_id = $update->callback_query->message->chat->id;
-    $message_id = $update->callback_query->message->message_id;
-    $data = $update->callback_query->data;
-    $callback_query = $output['callback_query'];
-    $from_id = $callback_query['from']['id'];
 
-    if ($data == 'join') {
-        $url = "https://sunmeditry.000webhostapp.com/1.jpg";
 
-        bot('sendPhoto', [
+    if ($textmsg == '/join') {
+        $url = "https://sunmediavip.000webhostapp.com/1.jpg";
+
+        dosomething('sendPhoto', [
             'chat_id' => $chat_id,
+            'parse_mode' => "MarkDown",
+            'disable_web_page_preview'=>'true',
             'photo' => $url,
             'caption' => " كـيـفـيـة الانضمام : 
             تسجيل اشتراك في المنصة يتطلب منك وجود ايميل جيمل او هوتميل او ياهو 
@@ -107,22 +82,19 @@ if (isset($update->callback_query)) {
             -اضغط على تسجيل
             -أدخل رمز التحقق ثم موافق
             
+            -
+            -
+         -في حال وجود أي مشكلة تواصلو معي : [من هنا](https://t.me/jalall_kh)
+         -للتسجيل في الموقع : [انقر هنا](https://www.sunvideomediavip.com/welcome?s=Jte0Vg&lang=ar)
+         -للانضمام إلى غروب الدعم الخاصة بالفريق : [انقر هنا](https://t.me/+iMgI6bKC4_EyZDBk)
             ",
-            'reply_markup' => json_encode([
-                'inline_keyboard' => [
-                    [['text' => ' العودة إلى البداية   ', 'callback_data' => 'start1']],
-                    [['text' => ' انقر للتسجيل في الموقع  ', 'url' => 'https://www.sunvideomediavip.com/welcome?s=Jte0Vg&lang=ar']],
-                    [['text' => 'غروب الدعم الخاصة بفريقنا ', 'url' => "https://t.me/+iMgI6bKC4_EyZDBk"]],
-                    [['text' => 'تـواصـل مـعــي في حال وجود أي مشكلة', 'url' => 'https://t.me/jalall_kh']],
-
-                ]
-            ])
         ]);
     }
-    if ($data == 'How_use') {
-        bot('EditMessageText', [
+    if ($textmsg == '/how_use') {
+        dosomething('sendMessage', [
             'chat_id' => $chat_id,
-            'message_id' => $message_id,
+            'parse_mode' => "MarkDown",
+            'disable_web_page_preview'=>'true',
             'text' => "كـيـفـيـة الاسـتخدام : 
         -بعد تسجيل الدخول إلى الموقع اضغط على جملة :
            Receive with one click
@@ -132,106 +104,58 @@ if (isset($update->callback_query)) {
          *قم بالضغط على زر الرجوع للخروج من التطبيق الذي تم فتحه  
          * انقر ثانية على ذات الزر 
          * تفتح نافذة صغيرة تسألك إذا أتمممت المهمة انقرعلى زر 'مكتمل' أو 'completed'
+         -
+        -
+         -في حال وجود أي مشكلة تواصلو معي : [من هنا](https://t.me/jalall_kh)
+         -للتسجيل في الموقع : [انقر هنا](https://www.sunvideomediavip.com/welcome?s=Jte0Vg&lang=ar)
+         -للانضمام إلى غروب الدعم الخاصة بالفريق : [انقر هنا](https://t.me/+iMgI6bKC4_EyZDBk)
         ",
-            'reply_markup' => json_encode([
-                'inline_keyboard' => [
-                    [['text' => ' العودة إلى البداية   ', 'callback_data' => 'start2']],
-                    [['text' => ' انقر للتسجيل في الموقع  ', 'url' => 'https://www.sunvideomediavip.com/welcome?s=Jte0Vg&lang=ar']],
-                    [['text' => 'غروب الدعم الخاصة بفريقنا ', 'url' => "https://t.me/+iMgI6bKC4_EyZDBk"]],
-                    [['text' => 'تـواصـل مـعــي في حال وجود أي مشكلة', 'url' => 'https://t.me/jalall_kh']],
-
-                ]
-            ])
         ]);
-    }
 
 
-    if ($data == 'How_earn') {
-        bot('EditMessageText', [
+          }
+
+
+    if ($textmsg == '/how_earn') {
+        dosomething('sendMessage', [
             'chat_id' => $chat_id,
-            'message_id' => $message_id,
+            'parse_mode' => "MarkDown",
+            'disable_web_page_preview'=>'true',
             'text' => "كـيـفـيـة الحصول على الربح :
         -عليك إنشاء محفظة الكترونية عللى أٍي منصة ولتكن trust wallet وإضافة عملة  {USDT} عليها
         - كلفة سحب الرصيد هي 2$ لذلك من الأفضل التأكد أن المبلغ مناسب قبل تأكيد التحويل
         -يتم تحويل الرصيد إلى محفظتك الالكترونية ثم يمكنك سحبه منها وتصريفه عند أي طرف
         -إذا لم تجد شخص يستطيع تحويل هذه العملة لأجلك تواصل معنا 
+        -
+        -
+        في حال وجود أي مشكلة تواصلو معي : [من هنا](https://t.me/jalall_kh)
+        للتسجيل في الموقع : [انقر هنا](https://www.sunvideomediavip.com/welcome?s=Jte0Vg&lang=ar)
+        للانضمام إلى غروب الدعم الخاصة بالفريق : [انقر هنا](https://t.me/+iMgI6bKC4_EyZDBk)
         ",
-            'reply_markup' => json_encode([
-                'inline_keyboard' => [
-                    [['text' => ' العودة إلى البداية   ', 'callback_data' => 'start2']],
-                    [['text' => ' انقر للتسجيل في الموقع  ', 'url' => 'https://www.sunvideomediavip.com/welcome?s=Jte0Vg&lang=ar']],
-                    [['text' => 'غروب الدعم الخاصة بفريقنا ', 'url' => "https://t.me/+iMgI6bKC4_EyZDBk"]],
-                    [['text' => 'تـواصـل مـعــي في حال وجود أي مشكلة', 'url' => 'https://t.me/jalall_kh']],
-                ]
-            ])
         ]);
 
-    }
-    if ($data == 'How_to_get') {
-        bot('EditMessageText', [
+
+
+          }
+    if ($textmsg == '/how_get') {
+        dosomething('sendMessage', [
             'chat_id' => $chat_id,
-            'message_id' => $message_id,
+            'parse_mode' => "MarkDown",
+            'disable_web_page_preview'=>'true',
             'text' => "كـيـفـيـة الحصول على هدية التسجيل  :
-              *بعد إتمام التسجيل قم بالانضمام الى المجموعة الرسمية 
+              *بعد إتمام التسجيل وإتمام أول أربع مهام قم بالانضمام الى المجموعة الرسمية 
                 ثم أرسل اسم المستخدم+3
                 على سبيل المثال اذا كان اسم المستخدم usern 
                 عندها نكتب usern+3
                 ثم نرسلها 
               *ستحصل على الرصيد الإضافي عندما يرى الأدمن رسالتك
+              -
+              -
+              العودة للبداية : /start
+             للانضمام إلى المجموعة الرسمية : [انقر هنا](https://t.me/SUNAMY888)
+             للانضمام إلى غروب الدعم الخاصة بالفريق : [انقر هنا](https://t.me/+iMgI6bKC4_EyZDBk)
 
-        ",
-            'reply_markup' => json_encode([
-                'inline_keyboard' => [
-                    [['text' => ' العودة إلى البداية   ', 'callback_data' => 'start2']],
-                    [['text' => ' انقر للانضمام  إلى المجموعة الرسمية  ', 'url' => 'https://t.me/SUNAMY888']],
-                    [['text' => 'غروب الدعم الخاصة بفريقنا ', 'url' => "https://t.me/+iMgI6bKC4_EyZDBk"]],
-                ]
-            ])
-        ]);
+        ", ]);
 
-
-    }
-
-
-    if ($data == 'start1') {
-
-        bot('sendMessage', [
-            'chat_id' => $chat_id,
-            'parse_mode' => "MarkDown",
-            'text' => "أهلاً بكم في بوت  الاستفسار والدعم الخاص بمنصة SunMedia : ",
-            'reply_markup' => json_encode([
-                'inline_keyboard' => [
-                    [['text' => "كـيـفـيـة الانضمام", 'callback_data' => 'join']],
-                    [['text' => 'كـيـفـيـة الاسـتخدام', 'callback_data' => 'How_use']],
-                    [['text' => 'آلية الحصول النقود', 'callback_data' => 'How_earn']],
-                    [['text' => 'كـيـفـيـة الحصول على هدية التسجيل', 'callback_data' => 'How_to_get']],
-                    [['text' => 'غروب الدعم الخاصة بفريقنا ', 'url' => "https://t.me/+iMgI6bKC4_EyZDBk"]],
-                    [['text' => 'تـواصـل مـعــي للاستفسار', 'url' => 'https://t.me/jalall_kh']],
-
-                ]
-            ])
-        ]);
-    }
-    if ($data == 'start2') {
-
-
-        bot('EditMessageText', [
-            'chat_id' => $chat_id,
-            'message_id' => $message_id,
-            'text' =>  "أهلاً بكم في بوت  الاستفسار والدعم الخاص بمنصة SunMedia : ",
-            'reply_markup' => json_encode([
-                'inline_keyboard' => [
-                    [['text' => "كـيـفـيـة الانضمام", 'callback_data' => 'join']],
-                    [['text' => 'كـيـفـيـة الاسـتخدام', 'callback_data' => 'How_use']],
-                    [['text' => 'آلية الحصول النقود', 'callback_data' => 'How_earn']],
-                    [['text' => 'كـيـفـيـة الحصول على هدية التسجيل', 'callback_data' => 'How_to_get']],
-                    [['text' => 'غروب الدعم الخاصة بفريقنا ', 'url' => "https://t.me/+iMgI6bKC4_EyZDBk"]],
-                    [['text' => 'تـواصـل مـعــي للاستفسار', 'url' => 'https://t.me/jalall_kh']],
-
-                ]
-            ])
-        ]);
-
-    }
-}
-ECHO "GO PLAY AWAY ";
+          }
+  ECHO "GO PLAY AWAY ";
